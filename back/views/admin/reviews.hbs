@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Reviews</title>
+    <link rel="stylesheet" href="/stylesheets/frecuenciagamer.css">
+</head>
+<body>
+    <div class="content">
+        <h1>Reviews</h1>
+
+        <h2>Añadir Nueva Review</h2>
+        <form action="/admin/reviews" method="post" enctype="multipart/form-data">
+            <label for="titulo">Título:</label>
+            <input type="text" id="titulo" name="titulo" required><br><br>
+
+            <label for="contenido">Contenido:</label>
+            <textarea id="contenido" name="contenido" required></textarea><br><br>
+
+            <label for="imagen">Imagen:</label>
+            <input type="file" id="imagen" name="imagen"><br><br>
+
+            <button type="submit">Añadir Review</button>
+        </form>
+
+        <h2>Lista de Reviews</h2>
+        <ul>
+            {{#each reviews}}
+            <li>
+                <img src="{{this.imagen}}" alt="Imagen de {{this.titulo}}" width="100"><br>
+                <strong>{{this.titulo}}</strong> - {{this.contenido}}
+                <form action="/admin/reviews/{{this.id}}?_method=DELETE" method="post" style="display:inline;">
+                    <button type="submit">Eliminar</button>
+                </form>
+                <button onclick="editReview('{{this.id}}', '{{this.titulo}}', '{{this.contenido}}', '{{this.imagen}}')">Editar</button>
+            </li>
+            {{/each}}
+        </ul>
+
+        <a href="/admin">Volver al Admin</a>
+
+        <div id="editForm" style="display:none;">
+            <h2>Editar Review</h2>
+            <form id="editReviewForm" action="" method="post" enctype="multipart/form-data">
+                <input type="hidden" id="editId" name="_method" value="PUT">
+                <label for="editTitulo">Título:</label>
+                <input type="text" id="editTitulo" name="titulo" required><br><br>
+
+                <label for="editContenido">Contenido:</label>
+                <textarea id="editContenido" name="contenido" required></textarea><br><br>
+
+                <label for="editImagen">Imagen:</label>
+                <input type="file" id="editImagen" name="imagen"><br><br>
+
+                <button type="submit">Guardar Cambios</button>
+                <button type="button" onclick="cancelEdit()">Cancelar</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function editReview(id, titulo, contenido, imagen) {
+            document.getElementById('editForm').style.display = 'block';
+            document.getElementById('editReviewForm').action = '/admin/reviews/' + id;
+            document.getElementById('editId').value = id;
+            document.getElementById('editTitulo').value = titulo;
+            document.getElementById('editContenido').value = contenido;
+        }
+
+        function cancelEdit() {
+            document.getElementById('editForm').style.display = 'none';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+
+.main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%; 
+  background-color: #f2f2f2; 
+}
+
+.seccion-contacto {
+  background-color: #ffffff;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 70%; 
+  max-width: 600px; 
+}
+
+.grupo-formulario {
+  margin-bottom: 1rem;
+}
+
+.grupo-formulario label {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.grupo-formulario input,
+.grupo-formulario textarea {
+  width: 100%;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.grupo-formulario textarea {
+  resize: vertical;
+}
+
+.grupo-formulario button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.grupo-formulario button:hover {
+  background-color: #45a049;
+}

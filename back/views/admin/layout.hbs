@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{title}}</title>
+    <link rel="stylesheet" href="/stylesheets/frecuenciagamer.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            background-color: #107C10;
+            padding: 10px;
+        }
+        .navbar a {
+            color: white;
+            padding: 14px 20px;
+            text-decoration: none;
+            text-align: center;
+        }
+        .navbar a:hover {
+            background-color: #0a5c0a;
+            color: white;
+        }
+        .content {
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: calc(100vh - 60px); 
+        }
+        .logout-button {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .logout-button:hover {
+            background-color: #45a049;
+        }
+        footer {
+            background-color: #107C10;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    {{#if session.id_usuario}}
+    <div class="navbar">
+        <div>
+            <a href="/admin">Admin Home</a>
+        </div>
+        <div>
+            <form action="/admin/login/logout" method="get" style="display: inline;">
+                <button class="logout-button" type="submit">Logout</button>
+            </form>
+        </div>
+    </div>
+    {{/if}}
+    <div class="content">
+        {{{body}}}
+    </div>
+    <footer>
+        Frecuencia Gamer - Todos los derechos reservados
+    </footer>
+</body>
+</html>

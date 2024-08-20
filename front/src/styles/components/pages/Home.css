@@ -1,0 +1,121 @@
+/* Swiper Carousel */
+.mySwiper {
+  width: 100%;
+  height: 50vh;
+}
+
+.swiper-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.carousel-caption {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.7); 
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.carousel-caption h3 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.carousel-caption button {
+  margin-top: 10px;
+  background-color: #107C10; 
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.carousel-caption button:hover {
+  background-color: #0a5c0a; 
+}
+
+/* Secciones principales en Home */
+.home-sections {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap; 
+  margin-top: 20px;
+}
+
+.home-sections .ultimoslanzamientos,
+.home-sections .reviews-main {
+  width: 48%;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.home-sections .lanzamiento,
+.home-sections .review {
+  background-color: #f4f4f4;
+  margin-bottom: 20px;
+  padding: 15px;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+}
+
+.home-sections h2 {
+  font-size: 1.8rem;
+  margin-bottom: 15px;
+  color: #107C10;
+}
+
+.home-sections h3 {
+  font-size: 1.4rem;
+  margin-bottom: 10px;
+  color: #107C10;
+}
+
+.home-sections p {
+  font-size: 1rem;
+  margin-bottom: 10px;
+  color: #666;
+  line-height: 1.6;
+}
+
+.home-sections .leer-mas {
+  background-color: #107C10;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.home-sections .leer-mas:hover {
+  background-color: #0a5c0a;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 20px;
+  background-color: #107C10;
+  color: white;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  margin-top: 40px;
+}
+
+footer p {
+  margin: 0;
+  font-size: 0.9rem;
+}

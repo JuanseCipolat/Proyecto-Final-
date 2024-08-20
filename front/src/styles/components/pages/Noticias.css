@@ -1,0 +1,97 @@
+/* Estilos generales */
+.home-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Hero section */
+.hero {
+  text-align: center;
+  background-color: #107C10; 
+  color: white;
+  padding: 50px 20px;
+  margin-bottom: 40px;
+  border-radius: 8px;
+}
+
+.hero h1 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+}
+
+.hero p {
+  font-size: 1.2rem;
+}
+
+/* Sección de últimos lanzamientos */
+.latest-releases {
+  margin-bottom: 40px;
+}
+
+.latest-releases h2 {
+  font-size: 2rem;
+  color: #107C10;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.launch-list {
+  list-style: none;
+  padding: 0;
+  text-align: center;
+}
+
+.launch-list li {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+/* Sección de reviews */
+.reviews {
+  margin-bottom: 40px;
+}
+
+.reviews h2 {
+  font-size: 2rem;
+  color: #107C10;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.reviews-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.review {
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: calc(33.333% - 20px);
+}
+
+.review h3 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  color: #107C10;
+}
+
+.review p {
+  font-size: 1rem;
+  color: #666;
+}
+
+@media (max-width: 768px) {
+  .reviews-container {
+    flex-direction: column;
+  }
+
+  .review {
+    width: 100%;
+  }
+}
