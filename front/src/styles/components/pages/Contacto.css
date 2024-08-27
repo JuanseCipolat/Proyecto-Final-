@@ -3,52 +3,94 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%; 
-  background-color: #f2f2f2; 
+  min-height: 100vh; 
+  background-color: #f2f2f2;
+  padding: 2rem;
 }
 
 .seccion-contacto {
   background-color: #ffffff;
-  padding: 2rem;
+  padding: 2.5rem;
   margin-bottom: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  width: 70%; 
-  max-width: 600px; 
+  border-radius: 12px; 
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); 
+  width: 100%; 
+  max-width: 650px; 
+  transition: all 0.3s ease-in-out;
+}
+
+.seccion-contacto:hover {
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15); 
+}
+
+.seccion-contacto h2 {
+  text-align: center;
+  color: #107c10;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
 }
 
 .grupo-formulario {
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
 }
 
 .grupo-formulario label {
   display: block;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.75rem;
+  font-size: 1.1rem;
+  color: #333;
 }
 
 .grupo-formulario input,
 .grupo-formulario textarea {
   width: 100%;
-  padding: 0.5rem;
+  padding: 0.75rem;
   font-size: 1rem;
   border: 1px solid #ccc;
-  border-radius: 4px;
+  border-radius: 6px;
+  transition: border 0.3s ease;
+  background-color: #fafafa;
+}
+
+.grupo-formulario input:focus,
+.grupo-formulario textarea:focus {
+  border-color: #107c10; 
+  outline: none;
+  box-shadow: 0 0 8px rgba(16, 124, 16, 0.2);
 }
 
 .grupo-formulario textarea {
   resize: vertical;
+  min-height: 120px;
 }
 
 .grupo-formulario button {
-  background-color: #4CAF50;
+  display: inline-block;
+  background-color: #107c10; 
   color: white;
   border: none;
-  padding: 0.75rem 1rem;
-  font-size: 1rem;
+  padding: 0.75rem 1.5rem;
+  font-size: 1.1rem;
   cursor: pointer;
-  border-radius: 4px;
+  border-radius: 6px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .grupo-formulario button:hover {
-  background-color: #45a049;
+  background-color: #0a5e0b;
+  transform: translateY(-2px); 
+}
+
+.grupo-formulario button:active {
+  transform: translateY(0); 
+}
+
+.estado-mensaje {
+  text-align: center;
+  margin-top: 1.5rem;
+  font-size: 1.2rem;
+  color: #107c10;
+  padding: 1rem;
+  border-radius: 8px;
+  background-color: #e6f2e6;
 }

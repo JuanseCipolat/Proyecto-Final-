@@ -58,13 +58,20 @@
             color: red;
             text-align: center;
         }
+        .success {
+            color: green;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
     <div class="login-container">
         <h1>Login de Administrador</h1>
         {{#if error}}
-        <p class="error">Usuario o contraseña incorrectos. Inténtalo de nuevo.</p>
+        <p class="error">{{error}}</p>
+        {{/if}}
+        {{#if success}}
+        <p class="success">{{success}}</p>
         {{/if}}
         <form action="/admin/login" method="post">
             <label for="usuario">Usuario:</label>
@@ -75,11 +82,12 @@
         </form>
 
         <h2>Crear Nuevo Usuario</h2>
-        <form action="/admin/login/register" method="post">
+        <form action="/admin/login" method="post">
+            <input type="hidden" name="new_user" value="true">
             <label for="new-usuario">Usuario:</label>
-            <input type="text" id="new-usuario" name="usuario" required>
+            <input type="text" id="new-usuario" name="new_usuario" required>
             <label for="new-password">Contraseña:</label>
-            <input type="password" id="new-password" name="password" required>
+            <input type="password" id="new-password" name="new_password" required>
             <button type="submit">Crear Usuario</button>
         </form>
     </div>

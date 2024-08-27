@@ -41,65 +41,79 @@
   background-color: #0a5c0a; 
 }
 
-/* Secciones principales en Home */
+/* Home Sections */
 .home-sections {
   display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap; 
-  margin-top: 20px;
+  flex-direction: column;
+  gap: 30px; /* Aumenta el espacio entre las secciones */
+  margin-top: 30px;
 }
 
-.home-sections .ultimoslanzamientos,
-.home-sections .reviews-main {
-  width: 48%;
-  padding: 20px;
+.section-container {
   background-color: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra más marcada */
 }
 
-.home-sections .lanzamiento,
-.home-sections .review {
-  background-color: #f4f4f4;
-  margin-bottom: 20px;
-  padding: 15px;
-  border-radius: 8px;
-  border: 1px solid #e0e0e0;
-}
-
-.home-sections h2 {
+.section-container h2 {
   font-size: 1.8rem;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
   color: #107C10;
 }
 
-.home-sections h3 {
+.item-list {
+  display: flex;
+  justify-content: space-around;
+  gap: 20px;
+}
+
+.item-card {
+  flex: 1;
+  text-align: center;
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Caja individual con sombra */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.item-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.small-image {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+.item-card h3 {
   font-size: 1.4rem;
   margin-bottom: 10px;
   color: #107C10;
 }
 
-.home-sections p {
+.item-card p {
   font-size: 1rem;
-  margin-bottom: 10px;
   color: #666;
-  line-height: 1.6;
+  margin-bottom: 15px;
 }
 
-.home-sections .leer-mas {
+.item-card button {
   background-color: #107C10;
   color: white;
-  padding: 10px 20px;
+  padding: 10px 15px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  text-decoration: none;
-  font-size: 1rem;
   transition: background-color 0.3s ease;
 }
 
-.home-sections .leer-mas:hover {
+.item-card button:hover {
   background-color: #0a5c0a;
 }
 

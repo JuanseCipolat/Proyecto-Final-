@@ -3,71 +3,186 @@
 <head>
     <title>Reviews</title>
     <link rel="stylesheet" href="/stylesheets/frecuenciagamer.css">
+    <style>
+        .form-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .form-box {
+            width: 40%;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .form-box h2 {
+            color: #107C10;
+            text-align: center;
+        }
+        .review-container {
+            margin-top: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .review-box {
+            width: 80%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #f4f4f4;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .review-box img {
+            width: 80px;
+            height: 80px;
+            margin-right: 15px;
+            object-fit: cover;
+        }
+        .review-content {
+            flex: 1;
+            margin-right: 20px;
+        }
+        .review-content h3 {
+            margin: 0;
+            color: #107C10;
+        }
+        .review-content p {
+            margin: 5px 0;
+            color: #666;
+            max-height: 60px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .review-buttons {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .review-buttons button {
+            margin: 5px 0;
+            background-color: #107C10;
+            color: white;
+            border: none;
+            padding: 8px;
+            cursor: pointer;
+            border-radius: 5px;
+            width: 100px;
+        }
+        .review-buttons button:hover {
+            background-color: #0a5c0a;
+        }
+        .edit-form {
+            display: none;
+        }
+        .admin-back-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+
+        .admin-back-button {
+            display: block;
+            margin-top: 20px;
+            background-color: #107C10;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            text-align: center;
+            border-radius: 5px;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+        .admin-back-button:hover {
+            background-color: #0a5c0a;
+        }
+    </style>
 </head>
 <body>
     <div class="content">
-        <h1>Reviews</h1>
-
-        <h2>Añadir Nueva Review</h2>
-        <form action="/admin/reviews" method="post" enctype="multipart/form-data">
-            <label for="titulo">Título:</label>
-            <input type="text" id="titulo" name="titulo" required><br><br>
-
-            <label for="contenido">Contenido:</label>
-            <textarea id="contenido" name="contenido" required></textarea><br><br>
-
-            <label for="imagen">Imagen:</label>
-            <input type="file" id="imagen" name="imagen"><br><br>
-
-            <button type="submit">Añadir Review</button>
-        </form>
-
-        <h2>Lista de Reviews</h2>
-        <ul>
-            {{#each reviews}}
-            <li>
-                <img src="{{this.imagen}}" alt="Imagen de {{this.titulo}}" width="100"><br>
-                <strong>{{this.titulo}}</strong> - {{this.contenido}}
-                <form action="/admin/reviews/{{this.id}}?_method=DELETE" method="post" style="display:inline;">
-                    <button type="submit">Eliminar</button>
+        <div class="form-container">
+            <div class="form-box">
+                <h2>Añadir Nueva Review</h2>
+                <form action="/admin/reviews" method="post" enctype="multipart/form-data">
+                    <label for="titulo">Título:</label>
+                    <input type="text" id="titulo" name="titulo" required><br><br>
+    
+                    <label for="contenido">Contenido:</label>
+                    <textarea id="contenido" name="contenido" required></textarea><br><br>
+    
+                    <label for="imagen">Imagen:</label>
+                    <input type="file" id="imagen" name="imagen"><br><br>
+    
+                    <button type="submit">Añadir Review</button>
                 </form>
-                <button onclick="editReview('{{this.id}}', '{{this.titulo}}', '{{this.contenido}}', '{{this.imagen}}')">Editar</button>
-            </li>
-            {{/each}}
-        </ul>
-
-        <a href="/admin">Volver al Admin</a>
-
-        <div id="editForm" style="display:none;">
-            <h2>Editar Review</h2>
-            <form id="editReviewForm" action="" method="post" enctype="multipart/form-data">
-                <input type="hidden" id="editId" name="_method" value="PUT">
-                <label for="editTitulo">Título:</label>
-                <input type="text" id="editTitulo" name="titulo" required><br><br>
-
-                <label for="editContenido">Contenido:</label>
-                <textarea id="editContenido" name="contenido" required></textarea><br><br>
-
-                <label for="editImagen">Imagen:</label>
-                <input type="file" id="editImagen" name="imagen"><br><br>
-
-                <button type="submit">Guardar Cambios</button>
-                <button type="button" onclick="cancelEdit()">Cancelar</button>
-            </form>
+            </div>
         </div>
+
+        <div class="review-container">
+            <h2>Lista de Reviews</h2>
+            {{#each reviews}}
+            <div class="review-box">
+                <img src="{{this.imagen}}" alt="Imagen de {{this.titulo}}">
+                <div class="review-content">
+                    <h3>{{this.titulo}}</h3>
+                    <p>{{this.contenido}}</p>
+                </div>
+                <div class="review-buttons">
+                    <form action="/admin/reviews/{{this.id}}?_method=DELETE" method="post">
+                        <button type="submit">Eliminar</button>
+                    </form>
+                    <button onclick="editReview('{{this.id}}')">Editar</button>
+                </div>
+            </div>
+
+            <!-- Formulario de edición individual -->
+            <div class="edit-form" id="editForm-{{this.id}}">
+                <h2>Editar Review</h2>
+                <form id="editReviewForm-{{this.id}}" action="/admin/reviews/{{this.id}}?_method=PUT" method="post" enctype="multipart/form-data">
+                    <label for="editTitulo">Título:</label>
+                    <input type="text" id="editTitulo-{{this.id}}" name="titulo" required><br><br>
+    
+                    <label for="editContenido">Contenido:</label>
+                    <textarea id="editContenido-{{this.id}}" name="contenido" required></textarea><br><br>
+    
+                    <label for="editImagen">Imagen:</label>
+                    <input type="file" id="editImagen-{{this.id}}" name="imagen"><br><br>
+    
+                    <button type="submit">Guardar Cambios</button>
+                    <button type="button" onclick="cancelEdit('{{this.id}}')">Cancelar</button>
+                </form>
+            </div>
+            {{/each}}
+        </div>
+
+        <a href="/admin" class="admin-back-button">Volver al Admin</a>
     </div>
 
     <script>
-        function editReview(id, titulo, contenido, imagen) {
-            document.getElementById('editForm').style.display = 'block';
-            document.getElementById('editReviewForm').action = '/admin/reviews/' + id;
-            document.getElementById('editId').value = id;
-            document.getElementById('editTitulo').value = titulo;
-            document.getElementById('editContenido').value = contenido;
+        function editReview(id) {
+            // Oculta todos los formularios primero
+            document.querySelectorAll('.edit-form').forEach(function(form) {
+                form.style.display = 'none';
+            });
+
+            // Muestra solo el formulario de la review seleccionada
+            var editForm = document.getElementById('editForm-' + id);
+            editForm.style.display = 'block';
+
+            // Rellenar los campos con los valores actuales
+            var titulo = document.querySelector(`#editTitulo-${id}`).value;
+            var contenido = document.querySelector(`#editContenido-${id}`).value;
+            console.log("Editando review con id:", id, titulo, contenido);
         }
 
-        function cancelEdit() {
-            document.getElementById('editForm').style.display = 'none';
+        function cancelEdit(id) {
+            var editForm = document.getElementById('editForm-' + id);
+            editForm.style.display = 'none';
         }
     </script>
 </body>

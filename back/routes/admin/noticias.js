@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const noticiasModel = require('../../models/noticiasModel');
 const cloudinary = require('cloudinary').v2;
+const fs = require('fs-extra');
 
 // Obtener todas las noticias
 router.get('/', async (req, res) => {
@@ -22,6 +23,7 @@ router.post('/', async (req, res) => {
             const imagen = req.files.imagen;
             const resultado = await cloudinary.uploader.upload(imagen.tempFilePath);
             data.imagen = resultado.secure_url;
+            await fs.unlink(imagen.tempFilePath);
         }
 
         await noticiasModel.createNoticia(data);
@@ -40,6 +42,7 @@ router.put('/:id', async (req, res) => {
             const imagen = req.files.imagen;
             const resultado = await cloudinary.uploader.upload(imagen.tempFilePath);
             data.imagen = resultado.secure_url;
+            await fs.unlink(imagen.tempFilePath);
         }
 
         await noticiasModel.updateNoticia(req.params.id, data);

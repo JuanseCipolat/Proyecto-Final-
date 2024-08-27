@@ -1,59 +1,54 @@
-var express = require("express");
+var express = require('express');
 var router = express.Router();
-var usuariosModel = require("./../../models/usuariosModel");
+var usuariosModel = require('../../models/usuariosModel');
 
-/* GET login page. */
-router.get("/", function (req, res, next) {
-  res.render("admin/login", { layout: "admin/layout" });
-});
-
-/* POST login form */
-router.post("/", async (req, res, next) => {
-  try {
-    var usuario = req.body.usuario;
-    var password = req.body.password;
-
-    var data = await usuariosModel.getUserByUsernameAndPassword(
-      usuario,
-      password
-    );
-
-    if (data != undefined) {
-      req.session.id_usuario = data.id;
-      req.session.nombre = data.usuario;
-      res.redirect("/admin");
-    } else {
-      res.render("admin/login", {
-        layout: "admin/layout",
-        error: true,
-      });
-    }
-  } catch (error) {
-    console.log(error);
-  }
-});
-
-/* GET logout */
-router.get("/logout", function (req, res, next) {
-  req.session.destroy(function(err) {
-    res.redirect("/admin/login");
+// Ruta para mostrar la pantalla de login
+router.get('/', function(req, res, next) {
+  res.render('admin/login', {
+    layout: 'admin/layout'
   });
 });
 
-/* POST register form */
-router.post("/register", async (req, res, next) => {
+// Ruta para procesar el login o la creación de un nuevo usuario
+router.post('/', async (req, res, next) => {
   try {
-    var usuario = req.body.usuario;
-    var password = req.body.password;
+    if (req.body.new_user) {
+      // Proceso de creación de usuario
+      var usuario = req.body.new_usuario;
+      var password = req.body.new_password;
 
-    await usuariosModel.createUser(usuario, password);
+      // Crear nuevo usuario en la base de datos
+      await usuariosModel.createUser({ usuario: usuario, password: password });
 
-    res.redirect("/admin/login");
+      // Mostrar mensaje de éxito
+      res.render('admin/login', {
+        layout: 'admin/layout',
+        success: 'Usuario creado exitosamente.'
+      });
+    } else {
+      // Proceso de login
+      var usuario = req.body.usuario;
+      var password = req.body.password;
+
+      // Verificar usuario y contraseña
+      var data = await usuariosModel.getUserByUsernameAndPassword(usuario, password);
+
+      if (data) {
+        req.session.id_usuario = data.id;
+        req.session.usuario = data.usuario;
+        res.redirect('/admin');
+      } else {
+        res.render('admin/login', {
+          layout: 'admin/layout',
+          error: 'Usuario o contraseña incorrectos. Inténtalo de nuevo.'
+        });
+      }
+    }
   } catch (error) {
     console.log(error);
-    res.render("admin/login", {
-      layout: "admin/layout",
-      error: true,
+    res.render('admin/login', {
+      layout: 'admin/layout',
+      error: 'Ocurrió un error, inténtalo nuevamente.'
     });
   }
 });

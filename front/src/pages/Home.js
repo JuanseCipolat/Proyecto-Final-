@@ -12,44 +12,34 @@ const Home = () => {
   const navigate = useNavigate();
   const [noticias, setNoticias] = useState([]);
   const [reviews, setReviews] = useState([]);
-  const [lanzamientos, setLanzamientos] = useState([]);
+  const [retro, setRetro] = useState([]);
+  const [shop, setShop] = useState([]);
 
   useEffect(() => {
-    const fetchNoticias = async () => {
+    const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/api/noticias');
-        setNoticias(response.data);
+        const noticiasRes = await axios.get(`${process.env.REACT_APP_API_URL}/api/noticias`);
+        setNoticias(noticiasRes.data);
+
+        const reviewsRes = await axios.get(`${process.env.REACT_APP_API_URL}/api/reviews`);
+        setReviews(reviewsRes.data);
+
+        const retroRes = await axios.get(`${process.env.REACT_APP_API_URL}/api/retro`);
+        setRetro(retroRes.data);
+
+        const shopRes = await axios.get(`${process.env.REACT_APP_API_URL}/api/productos`);
+        setShop(shopRes.data);
       } catch (error) {
-        console.error("Error fetching noticias:", error);
+        console.error("Error fetching data:", error);
       }
     };
-
-    const fetchReviews = async () => {
-      try {
-        const response = await axios.get('http://localhost:3000/api/reviews');
-        setReviews(response.data);
-      } catch (error) {
-        console.error("Error fetching reviews:", error);
-      }
-    };
-
-    const fetchLanzamientos = async () => {
-      try {
-        const response = await axios.get('http://localhost:3000/api/productos');
-        setLanzamientos(response.data);
-      } catch (error) {
-        console.error("Error fetching lanzamientos:", error);
-      }
-    };
-
-    fetchNoticias();
-    fetchReviews();
-    fetchLanzamientos();
+    fetchData();
   }, []);
 
   return (
     <div>
       <main>
+        {/* Carousel de Noticias */}
         <section className="news-carousel">
           <Swiper
             spaceBetween={30}
@@ -77,31 +67,56 @@ const Home = () => {
           </Swiper>
         </section>
 
+        {/* Secciones del Home */}
         <div className="home-sections">
-          <div className="ultimoslanzamientos">
-            <h2>Últimos Lanzamientos</h2>
-            {lanzamientos.map((lanzamiento) => (
-              <div key={lanzamiento.id} className="lanzamiento">
-                <h3>{lanzamiento.titulo}</h3>
-                <p>{lanzamiento.contenido}</p>
-              </div>
-            ))}
+          {/* Sección Reviews */}
+          <div className="section-container">
+            <h2>Reviews</h2>
+            <div className="item-list">
+              {reviews.slice(0, 3).map((review) => (
+                <div key={review.id} className="item-card">
+                  <img src={review.imagen} alt={review.titulo} className="small-image" />
+                  <h3>{review.titulo}</h3>
+                  <p>{review.contenido.substring(0, 100)}...</p>
+                  <button onClick={() => navigate('/Reviews')}>Leer más</button>
+                </div>
+              ))}
+            </div>
           </div>
 
-          <div className="reviews-main">
-            <h2>Reviews</h2>
-            {reviews.map((review) => (
-              <div key={review.id} className="review">
-                <h3>{review.titulo}</h3>
-                <p>{review.contenido}</p>
-                <a href="#" onClick={() => navigate('/Reviews')} className="leer-mas">Leer más</a>
-              </div>
-            ))}
+          {/* Sección Retro */}
+          <div className="section-container">
+            <h2>Retro</h2>
+            <div className="item-list">
+              {retro.slice(0, 3).map((item) => (
+                <div key={item.id} className="item-card">
+                  <img src={item.imagen} alt={item.titulo} className="small-image" />
+                  <h3>{item.titulo}</h3>
+                  <p>{item.contenido.substring(0, 100)}...</p>
+                  <button onClick={() => navigate('/Retro')}>Leer más</button>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Sección Shop */}
+          <div className="section-container">
+            <h2>Shop</h2>
+            <div className="item-list">
+              {shop.slice(0, 3).map((producto) => (
+                <div key={producto.id} className="item-card">
+                  <img src={producto.imagen} alt={producto.titulo} className="small-image" />
+                  <h3>{producto.titulo}</h3>
+                  <p>{producto.descripcion.substring(0, 100)}...</p>
+                  <button onClick={() => navigate('/Shop')}>Ver producto</button>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </main>
     </div>
   );
-}
+};
 
 export default Home;

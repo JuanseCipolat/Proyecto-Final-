@@ -8,7 +8,7 @@ const Shop = () => {
   useEffect(() => {
     const fetchProductos = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/api/productos');
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/productos`);
         setProductos(response.data);
       } catch (error) {
         console.error("Error fetching productos:", error);
@@ -21,13 +21,14 @@ const Shop = () => {
   return (
     <main className="shop-container">
       <h2 className="shop-title">Tienda</h2>
-      <div className="shop-items">
+      <div className="shop-grid">
         {productos.map((producto) => (
           <div key={producto.id} className="shop-item">
-            <img src={producto.imagen} alt={producto.titulo} className="shop-img" />
-            <h3 className="shop-item-title">{producto.titulo}</h3>
-            <p className="shop-item-text">{producto.contenido}</p>
+            <img src={producto.imagen} alt={producto.nombre} className="shop-item-img" />
+            <h3 className="shop-item-title">{producto.nombre}</h3>
+            <p className="shop-item-text">{producto.descripcion}</p>
             <p className="shop-item-price">${producto.precio}</p>
+            <button className="shop-item-button">Comprar</button>
           </div>
         ))}
       </div>

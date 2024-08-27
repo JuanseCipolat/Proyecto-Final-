@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const reviewsModel = require('../../models/reviewsModel');
-const cloudinary = require('../../cloudinary')
+const cloudinary = require('cloudinary').v2;
+const fs = require('fs-extra');
 
 // Obtener todas las reviews
 router.get('/', async (req, res) => {
@@ -17,11 +18,13 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res) => {
     try {
         let data = req.body;
-
+        
+        // Si hay imagen, cargarla a Cloudinary
         if (req.files && req.files.imagen) {
             const imagen = req.files.imagen;
             const resultado = await cloudinary.uploader.upload(imagen.tempFilePath);
             data.imagen = resultado.secure_url;
+            await fs.unlink(imagen.tempFilePath); // Eliminar archivo temporal
         }
 
         await reviewsModel.createReview(data);
@@ -36,10 +39,12 @@ router.put('/:id', async (req, res) => {
     try {
         let data = req.body;
 
+        // Si hay imagen, cargarla a Cloudinary
         if (req.files && req.files.imagen) {
             const imagen = req.files.imagen;
             const resultado = await cloudinary.uploader.upload(imagen.tempFilePath);
             data.imagen = resultado.secure_url;
+            await fs.unlink(imagen.tempFilePath); // Eliminar archivo temporal
         }
 
         await reviewsModel.updateReview(req.params.id, data);

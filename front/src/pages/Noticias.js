@@ -8,7 +8,7 @@ const Noticias = () => {
   useEffect(() => {
     const fetchNoticias = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/api/noticias');
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/noticias`);
         setNoticias(response.data);
       } catch (error) {
         console.error("Error fetching noticias:", error);
@@ -22,10 +22,10 @@ const Noticias = () => {
     <main className="noticias-container">
       <h2 className="noticias-title">Noticias</h2>
       {noticias.map((noticia) => (
-        <div key={noticia.id} className="noticia">
-          <img src={noticia.imagen} alt={noticia.titulo} className="noticia-img" />
-          <h3 className="noticia-title">{noticia.titulo}</h3>
-          <p className="noticia-text">{noticia.contenido}</p>
+        <div key={noticia.id} className="noticia-item">
+          <h3>{noticia.titulo}</h3>
+          <img src={noticia.imagen} alt={noticia.titulo} className="noticia-item-img" />
+          <p>{noticia.contenido}</p>
         </div>
       ))}
     </main>
